@@ -1,0 +1,43 @@
+{%extends "homepage.html"%}
+
+{%block content%}
+<center><h3>Payment</h3></center>
+<form method = 'post'>
+{%csrf_token%}
+<table class = "table">
+    <tr>
+        <td>Enter Acc no</td>
+        <td>
+            <input type = "text" name = "accno" placeholder="Account no" >
+        </td>
+    </tr>
+    <tr>
+        <td>Enter cvv</td>
+        <td><input type = "text" name = "cvv" placeholder="Cvv"></td>
+    </tr>
+    <tr>
+        <td>Enter Expiry</td>
+        <td>
+            <input type = "text" name = "expiry" placeholder="Expiry date">
+        </td>
+    </tr>
+    {%if orders == 'single'%}
+    <tr>
+        <td>Total Amount</td>
+        
+            <td>{%widthratio items.qty 1 items.cake.price%}</td>
+    </tr>
+    {%else%}
+        <tr>
+            <td>Total Amount</td>
+        <td>
+            {{request.session.total}}
+        </td>
+        </tr>
+    {%endif%}
+    </tr>
+   
+</table>
+<center><button type = "submit" class = "btn btn-success" >Proceed</button></center>
+</form>
+{%endblock%}

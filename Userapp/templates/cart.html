@@ -1,0 +1,72 @@
+{%extends "homepage.html"%}
+
+{%block content%}
+{% if messages%}
+{%for message in messages%}
+<div class = "alert alert-success alert-dimissible">
+  <a href = "#" class = "close" data-dismiss = "alert" alert-label = "close">&times;</a>
+  <strong>{{message}}</strong>
+</div>
+{%endfor%}
+{%endif%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/javascript">
+    function getconfirm(myid){
+        result = confirm('sure to delete y/n : ');
+        if (result){
+            myform = document.getElementById(myid);
+            myform.action = '/removeitem'
+            myform.submit();
+        }
+    }
+    function increment(myid){
+        txtqty = document.getElementById(myid);
+        if (txtqty.value<10){
+            txtqty.value = parseInt(txtqty.value)+1;
+        }
+    }
+    function decrement(myid){
+        txtqty = document.getElementById(myid)
+        if (txtqty.value>1){
+            txtqty.value = parseInt(txtqty.value)-1;
+        }
+    }
+</script>
+<table class = "table" border="1">
+    <tr>
+        <th>Cake Name</th>
+        <th>Disrciption</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Image</th>
+        <th>Total</th>
+    </tr>
+
+    {%for item in items%}
+    <form method="post" id = 'myform{{item.cake.id}}'>
+        {%csrf_token%}
+    <tr>
+        <td><input type = "hidden" name = "cakeid" value = "{{item.cake.id}}"/>{{item.cake.pname}}</td>
+        <td>{{item.cake.desc}}</td>
+        <td>{{item.cake.price}}</td>
+        <td ><button  type = "button" onclick="decrement('qty{{item.cake.id}}');">-</button>
+        <input type = "number" name = "qty" value = "{{item.qty}}" id = "qty{{item.cake.id}}" style="width :30px;"/>
+        <button type = "button" onclick="increment('qty{{item.cake.id}}');">+</button>
+            <button type = 'submit' class = 'btn btn-success'> Update</button></td>
+        <td><center><img src = {{item.cake.image.url}} style="width:100px; height : 100px;"></center></td>
+        <td>{%widthratio item.qty 1 item.cake.price%}</td>
+        <td><button type = 'button' onclick="getconfirm('myform{{item.cake.id}}')" class = 'btn btn-danger' > Delete
+        </button></td>
+        <td><a href = '/makepayment/{{item.cake.id}}' class = 'btn btn-success' >Order</a></td
+    </tr>westpeer
+</form> 
+    {%endfor%}
+    <tr>
+        <td colspan="5"></td>
+        <td >Total = {{request.session.total}} only</td>
+        
+    </tr>
+</table>        
+<center><a href = "/makepayment/0" class = "btn btn-success">Order All</a></center>
+{%endblock%}

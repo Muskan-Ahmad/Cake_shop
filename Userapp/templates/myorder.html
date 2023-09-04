@@ -1,0 +1,40 @@
+{%extends "homepage.html"%}
+
+{%block content%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type = 'text/javascript'>
+    function getconfirm(myid)
+    {
+        result = confirm("Are you sure you want to cancel(y/n) : ")
+        if(result)
+        {
+            myform = document.getElementById(myid);
+            myform.submit();
+        }
+    }
+
+</script>
+
+<h2>Your Orders</h2>
+<table class = "table" border="1">
+    <tr>
+        <th>Cake Name</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Total</th>
+    </tr>
+
+    {%for item in items%}
+    <form method="post" id = '{{item.id}}'>
+        {%csrf_token%}
+    <tr>
+        <td><input type = "hidden" name = "cakeid" value = "{{item.id}}"/>{{item.details}}</td>
+        <td>{{item.amount}}</td>
+        <td >Will be reach soon</td>
+        <td><button name = "action" value = "remove" class = 'btn btn-danger' onclick="getconfirm('{{item.id}}');"> Cancel
+        </button></td>
+    </tr>
+</form> 
+    {%endfor%}
+</table>        
+{%endblock%}

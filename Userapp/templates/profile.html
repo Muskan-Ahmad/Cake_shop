@@ -1,0 +1,76 @@
+{%extends "homepage.html"%}
+{%block content%}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.card {
+  box-shadow: 0 5px 16px 0 rgba(243, 4, 4, 0.2);
+  transition: 0.3s;
+  border-radius: 25px;
+  width: 50%;
+  height:20%;
+  margin-left: 25%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+ 
+
+}
+.table{
+    width:100%;
+}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+#one{
+    width:25%;
+    text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+  {% if messages%}
+  {%for message in messages%}
+  <div class = "alert alert-success alert-dimissible">
+    <a href = "#" class = "close" data-dismiss = "alert" alert-label = "close">&times;</a>
+    <strong>{{message}}</strong>
+  </div>
+  {%endfor%}
+  {%endif%}
+<div class="card">
+    <div class = "card-header" style="text-align: center; background-color: rgb(149, 149, 245);">User Info</div>
+  <div class="card-body">
+    <table class = "table">
+        <tr>
+            <td id = "one">username</td>
+            <td>{{user.username}}</td>
+            <td><a href = "/myorder" class = "btn btn-success">My Orders</a>
+        </tr>
+        <tr>
+            <td id = "one">Phone No</td>
+            <td>{{user.phn}}</td>
+            
+        </tr>
+        <tr>
+            <td id = "one">Email</td>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <td id = "one">Address</td>
+            <td>{{user.add}}</td>
+        </tr>
+
+    </table>
+  </div>
+</div>
+
+</body>
+</html> 
+{%endblock%}

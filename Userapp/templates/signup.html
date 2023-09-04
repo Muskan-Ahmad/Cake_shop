@@ -1,0 +1,143 @@
+{%extends "homepage.html"%}
+
+{%block content%}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(12, 5, 137, 0.2);
+  transition: 0.3s;
+  width: 30%;
+  height: 30%;
+  background-color:rgb(189, 207, 83);
+  border-radius: 25px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(36, 192, 49, 0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+#one{
+    border-radius: 18px;
+    padding: 20px; 
+    width: 200px;
+    height: 1px;    
+}
+#two{
+  background-color: antiquewhite;
+}
+</style>
+<script type="text/javascript">
+    function validate(){
+        var pass = document.getElementById('pws');
+        var capital = document.getElementById('capital');
+        var small = document.getElementById('small');
+        var special = document.getElementById('special');
+        var num= document.getElementById('number');
+        var len = document.getElementById('len');
+        if (pass.value.match(/[0-9]/)){
+            num.style.color = 'green';
+        }
+        else{
+            num.style.color = 'red';
+        }
+        if(pass.value.match(/[A-Z]/)){
+            capital.style.color = 'green';
+        }
+        else{
+            capital.style.color = 'red';
+        }
+        if(pass.value.match(/[a-z]/)){
+            small.style.color = 'green';
+        }
+        else{
+            small.style.color = 'red';
+        }
+        if(pass.value.match(/[!\@\#\$\%\^\&\*\,]/)){
+            special.style.color = 'green';
+        }
+        else{
+            special.style.color = 'red';
+        }
+        if(pass.value.length<8){
+            len.style.color = 'red';
+
+        }
+        else{
+            len.style.color = 'green';
+        }
+
+    }
+</script>
+</head>
+<body id = "two">
+    {%if messages%}
+    {%for message in messages%}
+    <div class = "alert alert-success alert-dimissible">
+      <a href = "#" class = "close" data-dismiss = "alert" alert-label = "close">&times;</a>
+      <strong>{{message}}</strong>
+    </div> 
+    {%endfor%}
+    {%endif%}
+    <center>
+    <form method="post">
+      {%csrf_token%}
+    <div class="card">
+        <br>
+      <div class = "card-header">Signup</div>
+      <br>
+      <div class = "card-body">
+      <table  id = 'round'>
+       
+        <tr>
+          <td rowspan="1"></td>
+        </tr>
+    <tr>
+      
+      <td>Username</td>
+        <td><input id = "one" type = "text" name = "uname" class = "form-control" placeholder="username" required ></td>
+        </tr>
+        <tr>
+      
+            <td>Phone no</td>
+            <td><input id = "one" type = "text" maxlenth = "10"name = "phn" class="form-control" placeholder="phone no" maxlength="10">
+          </td>
+        </tr>
+        <tr>
+          
+            <td>Email</td>
+            <td><input id = "one"type = "email" name = "email" class="form-control" placeholder="email" required>
+          </td>
+        </tr>
+        <tr>
+
+        <tr>
+        <td>Password</td>
+          <td><input  minlength = '8'style = "border-radius: 18px; padding: 20px; width: 200px;height: 1px;" id = 'pws'type = "password" name = "pwd" class="form-control" placeholder="password" onkeyup="return validate();"></td>
+     
+        </tr>
+        <div class = 'errors'>
+        <tr>
+        <td colspan="2">
+            <ul>
+                <li id = 'capital'>Atleast one capital letter</li>
+                <li id = 'small'>Atleast one small letter</li>
+                <li id = 'special'>Atleast one special Character</li>
+                <li id = 'number'>Atleast one number</li>
+                <li id = 'len'>Length atleast 8 or above</li>
+            </ul>
+          </td></tr></div>
+      </table>
+    
+    <br></div>
+      <div class = "card-footer"><button style="border-radius: 18px;" type = "submit" class = "btn btn-success"> Sign up</button></div>
+      <br>
+    </div></center></form>
+    </body>
+    </html> 
+    {%endblock%}
