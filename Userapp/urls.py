@@ -13,7 +13,6 @@ urlpatterns = [
     path('makepayment/<id>',views.makepayment),
     path('myprofile',views.myprofile),
     path('myorder',views.myorders),
-    path('home/',views.home),
     path('removeitem',views.removeitem),
     path('contact/',views.contact),
 

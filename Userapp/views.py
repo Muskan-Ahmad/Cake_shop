@@ -101,8 +101,7 @@ def cart(request):
         item.qty = qty
         item.save()
         return redirect(cart)
-def home(request):
-        return render(request,'home.html',{})
+
 def removeitem(request):
     uname = request.session['uname']
     user = Userinfo.objects.get(username = uname)
@@ -211,6 +210,3 @@ def contact(request):
         que.save()
         messages.success(request,'sent successful')
         return redirect(homepage)
-    
-def wishlist(request):
-    return redirect(homepage)
